@@ -59,11 +59,11 @@ public class PackResourceTest {
 
     @Test
     public void getUserPacks() throws Exception {
-        when(packUserClient.getUserPacks(any(), any())).thenReturn(Collections.emptyList());
+        when(packUserClient.getUserPacks(any())).thenReturn(Collections.emptyList());
         List<Pack> packs = objectMapper.readValue(fixture("pack/packNonNote.json"), new TypeReference<List<Pack>>() {
         });
         when(packDAO.getPacksById(any())).thenReturn(packs);
-        when(packNoteClient.getNoteByVersionId(any(), any()))
+        when(packNoteClient.getNoteByVersionId(any()))
                 .thenReturn(objectMapper.readTree(fixture("note/notes.json")));
 
         Response result = resources.client().target("/pack/user/userid").request().get();

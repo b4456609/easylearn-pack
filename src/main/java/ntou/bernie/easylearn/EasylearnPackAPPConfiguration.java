@@ -16,6 +16,12 @@ public class EasylearnPackAPPConfiguration extends Configuration {
     @Valid
     @NotNull
     private DatabaseConfiguration databaseConfiguration;
+    @Valid
+    @NotNull
+    private String noteServiceHost;
+    @Valid
+    @NotNull
+    private String userServiceHost;
 
     /**
      * @return the databaseConfiguration
@@ -49,5 +55,23 @@ public class EasylearnPackAPPConfiguration extends Configuration {
         this.appName = appName;
     }
 
+    @JsonProperty
+	public String getNoteServiceHost() {
+		return noteServiceHost;
+	}
 
+    @JsonProperty
+	public void setNoteServiceHost(String noteServiceHost) {
+		this.noteServiceHost = noteServiceHost;
+	}
+
+    @JsonProperty
+	public String getUserServiceHost() {
+		return userServiceHost;
+	}
+
+    @JsonProperty
+	public void setUserServiceHost(String userServiceHost) {
+		this.userServiceHost = userServiceHost;
+	}
 }

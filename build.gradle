@@ -8,11 +8,11 @@ apply plugin: 'idea'
 apply plugin: 'application'
 apply plugin: 'com.github.johnrengelman.shadow'
 
-group 'ntou.cs.bernie.easylearn'
+group 'ntou.bernie.easylearn'
 version '1.0-SNAPSHOT'
 
 sourceCompatibility = 1.8
-mainClassName = 'ntou.bernie.easylearn.image.EasylearnPackAPP'
+mainClassName = 'ntou.bernie.easylearn.EasylearnPackAPP'
 
 project.ext {
     configPath = "$rootProject.projectDir/"

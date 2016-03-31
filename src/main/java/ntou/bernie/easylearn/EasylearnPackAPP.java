@@ -8,15 +8,20 @@ import io.dropwizard.Application;
 import io.dropwizard.setup.Environment;
 import ntou.bernie.easylearn.db.MorphiaService;
 import ntou.bernie.easylearn.health.DatabaseHealthCheck;
+import ntou.bernie.easylearn.pack.client.PackNoteClient;
+import ntou.bernie.easylearn.pack.client.PackUserClient;
 import ntou.bernie.easylearn.pack.core.Pack;
 import ntou.bernie.easylearn.pack.db.PackDAOImp;
 import ntou.bernie.easylearn.pack.resource.PackResource;
 import org.eclipse.jetty.servlets.CrossOriginFilter;
+import org.glassfish.jersey.client.JerseyClientBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.servlet.DispatcherType;
 import javax.servlet.FilterRegistration;
+import javax.ws.rs.client.Client;
+
 import java.util.EnumSet;
 
 /**
@@ -55,7 +60,13 @@ public class EasylearnPackAPP extends Application<EasylearnPackAPPConfiguration>
         MorphiaService morphia = new MorphiaService(configuration.getDatabaseConfiguration());
 
 
-        PackResource packResource = new PackResource(new PackDAOImp(Pack.class, morphia.getDatastore()));
+        final Client client = new JerseyClientBuilder().build();
+        final Client client1 = new JerseyClientBuilder().build();
+
+        PackNoteClient packClient = new PackNoteClient(client, configuration.getNoteServiceHost());
+        PackUserClient userClient = new PackUserClient(client1, configuration.getUserServiceHost());
+
+        PackResource packResource = new PackResource(new PackDAOImp(Pack.class, morphia.getDatastore()), userClient, packClient);
         environment.jersey().register(packResource);
 
         // database health check

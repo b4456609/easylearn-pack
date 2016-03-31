@@ -43,20 +43,6 @@ public class PackResource {
     private final PackNoteClient packNoteClient;
     @Context
     UriInfo uriInfo;
-    @Context
-    private ResourceContext rc;
-
-    /**
-     * @param packDAO
-     */
-    public PackResource(PackDAO packDAO) {
-        this.packDAO = packDAO;
-        objectMapper = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
-                .setPropertyNamingStrategy(PropertyNamingStrategy.CAMEL_CASE_TO_LOWER_CASE_WITH_UNDERSCORES);
-        packUserClient = new PackUserClient();
-        packNoteClient = new PackNoteClient();
-
-    }
 
     public PackResource(PackDAO packDAO, PackUserClient packUserClient, PackNoteClient packNoteClient) {
         this.packDAO = packDAO;
@@ -74,7 +60,13 @@ public class PackResource {
             throw new WebApplicationException(400);
 
         LOGGER.debug(userId);
-        List<String> userPacks = packUserClient.getUserPacks(userId, rc);
+        List<String> userPacks = null;
+		try {
+			userPacks = packUserClient.getUserPacks(userId);
+		} catch (IOException e2) {
+			// TODO Auto-generated catch block
+			e2.printStackTrace();
+		}
 
         LOGGER.debug(userPacks.toString());
 
@@ -92,7 +84,7 @@ public class PackResource {
                 versionsNode.forEach(versionNode -> {
                     try {
                         String versionId = versionNode.get("id").asText();
-                        JsonNode noteJson = packNoteClient.getNoteByVersionId(versionId, rc);
+                        JsonNode noteJson = packNoteClient.getNoteByVersionId(versionId);
                         LOGGER.debug("pack's notes " + noteJson.toString());
                         ((ObjectNode) versionNode).set("note", noteJson);
 

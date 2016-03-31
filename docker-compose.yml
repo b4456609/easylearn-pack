@@ -7,6 +7,9 @@ services:
      - "8083:8081"
     links:
       - imagedb
+    external_links:
+      - easylearn-pack-service:packService
+      - easylearn-user-service:userService
   imagedb:
     image: mongo
     ports:
