@@ -63,8 +63,8 @@ public class EasylearnPackAPP extends Application<EasylearnPackAPPConfiguration>
         final Client client = new JerseyClientBuilder().build();
         final Client client1 = new JerseyClientBuilder().build();
 
-        PackNoteClient packClient = new PackNoteClient(client, configuration.getNoteServiceHost());
-        PackUserClient userClient = new PackUserClient(client1, configuration.getUserServiceHost());
+        PackNoteClient packClient = new PackNoteClient(client, configuration.getServiceHost());
+        PackUserClient userClient = new PackUserClient(client1, configuration.getServiceHost());
 
         PackResource packResource = new PackResource(new PackDAOImp(Pack.class, morphia.getDatastore()), userClient, packClient);
         environment.jersey().register(packResource);
