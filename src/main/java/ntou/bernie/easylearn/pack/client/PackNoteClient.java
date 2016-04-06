@@ -27,7 +27,7 @@ public class PackNoteClient {
     }
 
     public JsonNode getNoteByVersionId(String versionId) throws IOException {
-        Response response = client.target(hostname).path("/note/").path(versionId).request().get();
+        Response response = client.target(hostname).path("note/").path(versionId).request().get();
         String json = response.readEntity(String.class);
         return objectMapper.readTree(json);
     }

@@ -2,7 +2,8 @@ appName: EasylearnUserService
 mongoDB:
   host: imagedb
   port: 27017
-serviceHost: http://192.168.5.100:8080
+noteServiceHost: http://192.168.5.100:8086/
+userServiceHost: http://192.168.5.100:8084/
 
 # Logging settings.
 logging:

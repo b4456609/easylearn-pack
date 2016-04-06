@@ -4,6 +4,8 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.ws.rs.client.Client;
 import javax.ws.rs.container.ResourceContext;
@@ -15,6 +17,7 @@ import java.util.List;
  * Created by bernie on 2016/2/26.
  */
 public class PackUserClient {
+    private static final Logger LOGGER = LoggerFactory.getLogger(PackUserClient.class);
 
     private final ObjectMapper objectMapper;
     private final Client client;
@@ -28,8 +31,11 @@ public class PackUserClient {
     }
 
     public List<String> getUserPacks(String userId) throws IOException {
-        Response response = client.target(hostname).path("/user/").path(userId).request().get();
+        LOGGER.debug(userId);
+        Response response = client.target(hostname).path("user/").path(userId).path("/pack").request().get();
+        LOGGER.debug(response.toString());
         String json = response.readEntity(String.class);
+        LOGGER.debug(json);
         return objectMapper.readValue(json, new TypeReference<List<String>>() { });
     }
 }
