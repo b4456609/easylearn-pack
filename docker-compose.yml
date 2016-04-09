@@ -6,8 +6,8 @@ services:
      - "7082:8080"
      - "7083:8081"
     links:
-      - imagedb
-  imagedb:
+      - packdb
+  packdb:
     image: mongo
     ports:
      - "27018:27017"
