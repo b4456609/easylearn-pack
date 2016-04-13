@@ -1,5 +1,6 @@
 package ntou.bernie.easylearn.pack.resource;
 
+import com.codahale.metrics.annotation.ExceptionMetered;
 import com.codahale.metrics.annotation.Timed;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -55,6 +56,7 @@ public class PackResource {
     @GET
     @Path("/user/{userId}")
     @Timed
+    @ExceptionMetered
     public Response getUserPacks(@PathParam("userId") String userId) {
         if (userId == null)
             throw new WebApplicationException(400);
@@ -108,6 +110,7 @@ public class PackResource {
     @POST
     @Path("/sync")
     @Timed
+    @ExceptionMetered
     public Response syncPacks(String syncJson) {
         SimpleModule module = new SimpleModule();
         module.addDeserializer(Version.class, new CustomVersionDeserializer());
