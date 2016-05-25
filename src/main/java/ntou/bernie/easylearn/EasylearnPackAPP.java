@@ -8,6 +8,7 @@ import io.dropwizard.Application;
 import io.dropwizard.setup.Environment;
 import ntou.bernie.easylearn.db.MorphiaService;
 import ntou.bernie.easylearn.health.DatabaseHealthCheck;
+import ntou.bernie.easylearn.pack.client.ConsulClient;
 import ntou.bernie.easylearn.pack.client.PackNoteClient;
 import ntou.bernie.easylearn.pack.client.PackUserClient;
 import ntou.bernie.easylearn.pack.core.Pack;
@@ -41,7 +42,6 @@ public class EasylearnPackAPP extends Application<EasylearnPackAPPConfiguration>
 
     @Override
     public void run(EasylearnPackAPPConfiguration configuration, Environment environment) throws Exception {
-        LOGGER.info("Application name: {}", configuration.getAppName());
         environment.getObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 
         final FilterRegistration.Dynamic cors =
@@ -63,10 +63,16 @@ public class EasylearnPackAPP extends Application<EasylearnPackAPPConfiguration>
         final Client client = new JerseyClientBuilder().build();
         final Client client1 = new JerseyClientBuilder().build();
 
-        PackNoteClient packClient = new PackNoteClient(client, configuration.getNoteServiceHost());
-        PackUserClient userClient = new PackUserClient(client1, configuration.getUserServiceHost());
+        ConsulClient consulClient = new ConsulClient();
+        consulClient.getServiceHost(configuration.getHost());
+        String host = consulClient.getHost();
+        String userhost = "http://" + host + ":" + configuration.getUserServicePort() + "/";
+        String notehost = "http://" + host + ":" + configuration.getNoteServicePort() + "/";
 
-        PackResource packResource = new PackResource(new PackDAOImp(Pack.class, morphia.getDatastore()), userClient, packClient);
+        PackNoteClient noteClient = new PackNoteClient(client, notehost);
+        PackUserClient userClient = new PackUserClient(client1, userhost);
+
+        PackResource packResource = new PackResource(new PackDAOImp(Pack.class, morphia.getDatastore()), userClient, noteClient);
         environment.jersey().register(packResource);
 
         // database health check

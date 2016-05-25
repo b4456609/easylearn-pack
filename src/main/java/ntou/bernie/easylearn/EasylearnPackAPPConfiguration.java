@@ -12,16 +12,16 @@ import javax.validation.constraints.NotNull;
 public class EasylearnPackAPPConfiguration extends Configuration {
     @Valid
     @NotNull
-    private String appName;
-    @Valid
-    @NotNull
     private DatabaseConfiguration databaseConfiguration;
     @Valid
     @NotNull
-    private String noteServiceHost;
+    private String noteServicePort;
     @Valid
     @NotNull
-    private String userServiceHost;
+    private String userServicePort;
+    @Valid
+    @NotNull
+    private String host;
 
     /**
      * @return the databaseConfiguration
@@ -39,37 +39,27 @@ public class EasylearnPackAPPConfiguration extends Configuration {
         this.databaseConfiguration = databaseConfiguration;
     }
 
-    /**
-     * @return the appName
-     */
-    @JsonProperty
-    public String getAppName() {
-        return appName;
+    public String getNoteServicePort() {
+        return noteServicePort;
     }
 
-    /**
-     * @param appName the appName to set
-     */
-    @JsonProperty
-    public void setAppName(String appName) {
-        this.appName = appName;
+    public void setNoteServicePort(String noteServicePort) {
+        this.noteServicePort = noteServicePort;
     }
 
-    @JsonProperty
-	public String getNoteServiceHost() {
-		return noteServiceHost;
-	}
-
-    @JsonProperty
-	public void setNoteServiceHost(String noteServiceHost) {
-		this.noteServiceHost = noteServiceHost;
-	}
-
-    public String getUserServiceHost() {
-        return userServiceHost;
+    public String getUserServicePort() {
+        return userServicePort;
     }
 
-    public void setUserServiceHost(String userServiceHost) {
-        this.userServiceHost = userServiceHost;
+    public void setUserServicePort(String userServicePort) {
+        this.userServicePort = userServicePort;
+    }
+
+    public String getHost() {
+        return host;
+    }
+
+    public void setHost(String host) {
+        this.host = host;
     }
 }
