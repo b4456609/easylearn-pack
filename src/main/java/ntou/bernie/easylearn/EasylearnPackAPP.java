@@ -69,6 +69,10 @@ public class EasylearnPackAPP extends Application<EasylearnPackAPPConfiguration>
         String userhost = "http://" + host + ":" + configuration.getUserServicePort() + "/";
         String notehost = "http://" + host + ":" + configuration.getNoteServicePort() + "/";
 
+        LOGGER.info(host);
+        LOGGER.info(userhost);
+        LOGGER.info(notehost);
+
         PackNoteClient noteClient = new PackNoteClient(client, notehost);
         PackUserClient userClient = new PackUserClient(client1, userhost);
 
