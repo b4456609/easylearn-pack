@@ -1,0 +1,18 @@
+spring:
+  application:
+    name: easylearn-pack
+  data:
+    mongodb:
+      database: pack
+      host: packdb
+server:
+  port: 8080
+
+eureka:
+  instance:
+    preferIpAddress: true
+  client:
+    serviceUrl:
+      defaultZone: http://discovery:8761/eureka/
+    healthcheck:
+      enabled: true

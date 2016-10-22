@@ -1,0 +1,11 @@
+spring:
+  application:
+    name: easylearn-user
+  data:
+    mongodb:
+      database: user
+      host: localhost
+
+eureka:
+  client:
+    enabled: false
