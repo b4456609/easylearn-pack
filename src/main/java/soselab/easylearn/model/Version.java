@@ -210,4 +210,35 @@ public class Version {
     public void setViewCount(long viewCount) {
         this.viewCount = viewCount;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Version version = (Version) o;
+
+        if (createTime != version.createTime) return false;
+        if (isPublic != version.isPublic) return false;
+        if (viewCount != version.viewCount) return false;
+        if (!id.equals(version.id)) return false;
+        if (!content.equals(version.content)) return false;
+        if (!creatorUserId.equals(version.creatorUserId)) return false;
+        if (!creatorUserName.equals(version.creatorUserName)) return false;
+        return file != null ? file.equals(version.file) : version.file == null;
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id.hashCode();
+        result = 31 * result + content.hashCode();
+        result = 31 * result + (int) (createTime ^ (createTime >>> 32));
+        result = 31 * result + (isPublic ? 1 : 0);
+        result = 31 * result + creatorUserId.hashCode();
+        result = 31 * result + creatorUserName.hashCode();
+        result = 31 * result + (file != null ? file.hashCode() : 0);
+        result = 31 * result + (int) (viewCount ^ (viewCount >>> 32));
+        return result;
+    }
 }

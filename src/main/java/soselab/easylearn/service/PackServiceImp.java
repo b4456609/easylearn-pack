@@ -9,11 +9,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import soselab.easylearn.client.NoteClient;
 import soselab.easylearn.client.UserClient;
+import soselab.easylearn.exception.PackNotFoundException;
 import soselab.easylearn.model.Pack;
+import soselab.easylearn.model.Version;
 import soselab.easylearn.repository.PackRepository;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 /**
  * Created by bernie on 2016/9/11.
@@ -33,11 +38,39 @@ public class PackServiceImp implements PackService {
     @Override
     public List<Pack> getUserPacks(String userId) {
         List<String> userPacks = userClient.getUserPacks(userId);
-        if (userPacks == null) return null;
+        if (userPacks == null) return Collections.emptyList();
         Iterable<Pack> packs = packRepository.findAll(userPacks);
         List<Pack> pack = new ArrayList<>();
         packs.forEach(pack::add);
         return pack;
+    }
+
+    @Override
+    public void addPack(Pack pack) {
+        packRepository.save(pack);
+    }
+
+    @Override
+    public void addVersion(String packId, Version version) {
+        Pack pack = packRepository.findOne(packId);
+        if(pack == null) throw new PackNotFoundException();
+        pack.getVersion().add(version);
+        packRepository.save(pack);
+    }
+
+    @Override
+    public void updateVersion(String packId, Version version) {
+        Pack pack = packRepository.findOne(packId);
+        if(pack == null) throw new PackNotFoundException();
+
+        List<Version> versions = pack.getVersion()
+                .stream()
+                .filter(v -> v.getId().equals(version.getId()))
+                .collect(Collectors.toList());
+
+        versions.add(version);
+        pack.setVersion(versions);
+        packRepository.save(pack);
     }
 
 }

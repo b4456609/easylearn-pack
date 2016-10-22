@@ -40,11 +40,11 @@ public class PackController {
         //auth the pack create
         if (!version.getCreatorUserId().equals(userId))
             throw new UserValidationFailException();
-        packService.addVersion(version);
+        packService.addVersion(packId, version);
     }
 
     @RequestMapping(path = "/{packId}/version", method = RequestMethod.PUT)
     public void updateVersion(@PathVariable String packId, Version version) {
-        packService.updateVersion(version);
+        packService.updateVersion(packId, version);
     }
 }

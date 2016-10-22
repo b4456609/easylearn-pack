@@ -13,7 +13,7 @@ public interface PackService {
 
     void addPack(Pack pack);
 
-    void addVersion(Version version);
+    void addVersion(String PackId, Version version);
 
-    void updateVersion(Version version);
+    void updateVersion(String PackId, Version version);
 }

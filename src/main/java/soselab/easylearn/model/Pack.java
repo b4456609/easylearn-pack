@@ -121,4 +121,40 @@ public class Pack {
     public void setVersion(List<Version> version) {
         this.version = version;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Pack pack = (Pack) o;
+
+        if (createTime != pack.createTime) return false;
+        if (isPublic != pack.isPublic) return false;
+        if (viewCount != pack.viewCount) return false;
+        if (!id.equals(pack.id)) return false;
+        if (!name.equals(pack.name)) return false;
+        if (description != null ? !description.equals(pack.description) : pack.description != null) return false;
+        if (!creatorUserId.equals(pack.creatorUserId)) return false;
+        if (!creatorUserName.equals(pack.creatorUserName)) return false;
+        if (coverFilename != null ? !coverFilename.equals(pack.coverFilename) : pack.coverFilename != null)
+            return false;
+        return version.equals(pack.version);
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id.hashCode();
+        result = 31 * result + name.hashCode();
+        result = 31 * result + (description != null ? description.hashCode() : 0);
+        result = 31 * result + (int) (createTime ^ (createTime >>> 32));
+        result = 31 * result + (isPublic ? 1 : 0);
+        result = 31 * result + creatorUserId.hashCode();
+        result = 31 * result + creatorUserName.hashCode();
+        result = 31 * result + (coverFilename != null ? coverFilename.hashCode() : 0);
+        result = 31 * result + version.hashCode();
+        result = 31 * result + (int) (viewCount ^ (viewCount >>> 32));
+        return result;
+    }
 }
