@@ -14,7 +14,7 @@ import java.util.List;
  */
 @FeignClient("easylearn-user")
 public interface UserClient {
-    @RequestMapping(method = RequestMethod.GET, value = "/user/pack")
+    @RequestMapping(method = RequestMethod.GET, value = "/pack")
     @Headers("user-id: {user-id}")
     List<String> getUserPacks(@Param("user-id") String userId);
 }
