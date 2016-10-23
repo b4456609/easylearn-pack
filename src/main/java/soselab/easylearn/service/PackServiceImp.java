@@ -37,8 +37,8 @@ public class PackServiceImp implements PackService {
     public List<Pack> getUserPacks(String userId) {
         LOGGER.info(userId);
         List<String> userPacks = userClient.getUserPacks(userId);
-        LOGGER.info(userPacks.toString());
         if (userPacks == null) return Collections.emptyList();
+        LOGGER.info(userPacks.toString());
         Iterable<Pack> packs = packRepository.findAll(userPacks);
         List<Pack> pack = new ArrayList<>();
         packs.forEach(pack::add);
