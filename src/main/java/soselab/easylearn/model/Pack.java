@@ -123,6 +123,22 @@ public class Pack {
     }
 
     @Override
+    public String toString() {
+        return "Pack{" +
+                "id='" + id + '\'' +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", createTime=" + createTime +
+                ", isPublic=" + isPublic +
+                ", creatorUserId='" + creatorUserId + '\'' +
+                ", creatorUserName='" + creatorUserName + '\'' +
+                ", coverFilename='" + coverFilename + '\'' +
+                ", version=" + version +
+                ", viewCount=" + viewCount +
+                '}';
+    }
+
+    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;

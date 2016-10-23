@@ -1,16 +1,14 @@
 package soselab.easylearn.controller;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import soselab.easylearn.exception.UserValidationFailException;
 import soselab.easylearn.model.Pack;
 import soselab.easylearn.model.Version;
 import soselab.easylearn.service.PackService;
 
-import javax.ws.rs.HeaderParam;
 import java.util.List;
 
 /**
@@ -18,17 +16,23 @@ import java.util.List;
  */
 @RestController
 public class PackController {
+    private static final Logger LOGGER = LoggerFactory.getLogger(PackController.class);
 
     @Autowired
     PackService packService;
 
     @RequestMapping(path = "/", method = RequestMethod.GET)
-    public List<Pack> getUserPacks(@HeaderParam("userId") String userId) {
+    public List<Pack> getUserPacks(@RequestHeader("user-id") String userId) {
+        LOGGER.info("getUserPacks");
+        LOGGER.info(userId);
         return packService.getUserPacks(userId);
     }
 
     @RequestMapping(path = "/", method = RequestMethod.POST)
-    public void addPack(@HeaderParam("userId") String userId, Pack pack) {
+    public void addPack(@RequestHeader("user-id") String userId, @RequestBody Pack pack) {
+        LOGGER.info("addPack");
+        LOGGER.info(userId);
+        LOGGER.info(pack.toString());
         //auth the pack create
         if (!pack.getCreatorUserId().equals(userId))
             throw new UserValidationFailException();
@@ -36,15 +40,17 @@ public class PackController {
     }
 
     @RequestMapping(path = "/{packId}/version", method = RequestMethod.POST)
-    public void addVersion(@HeaderParam("userId") String userId, @PathVariable String packId, Version version) {
+    public void addVersion(@RequestHeader("user-id") String userId,
+                           @PathVariable String packId, @RequestBody Version version) {
+
         //auth the pack create
         if (!version.getCreatorUserId().equals(userId))
             throw new UserValidationFailException();
         packService.addVersion(packId, version);
     }
 
-    @RequestMapping(path = "/{packId}/version", method = RequestMethod.PUT)
-    public void updateVersion(@PathVariable String packId, Version version) {
-        packService.updateVersion(packId, version);
-    }
+//    @RequestMapping(path = "/{packId}/version", method = RequestMethod.PUT)
+//    public void updateVersion(@PathVariable String packId, @RequestBody Version version) {
+//        packService.updateVersion(packId, version);
+//    }
 }

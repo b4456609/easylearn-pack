@@ -1,11 +1,12 @@
 spring:
   application:
-    name: easylearn-user
+    name: easylearn-pack
   data:
     mongodb:
-      database: user
-      host: localhost
+      database: pack
+      host: ${TEST_DB_HOST:localhost}
 
 eureka:
   client:
     enabled: false
+

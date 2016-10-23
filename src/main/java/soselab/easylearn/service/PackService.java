@@ -9,11 +9,11 @@ import java.util.List;
  * Created by bernie on 2016/9/11.
  */
 public interface PackService {
-    public List<Pack> getUserPacks(String userId);
+    List<Pack> getUserPacks(String userId);
 
     void addPack(Pack pack);
 
     void addVersion(String PackId, Version version);
 
-    void updateVersion(String PackId, Version version);
+//    void updateVersion(String PackId, Version version);
 }
