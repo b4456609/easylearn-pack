@@ -1,5 +1,7 @@
 package soselab.easylearn.client;
 
+import feign.Headers;
+import feign.Param;
 import org.springframework.cloud.netflix.feign.FeignClient;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,6 +14,7 @@ import java.util.List;
  */
 @FeignClient("easylearn-user")
 public interface UserClient {
-    @RequestMapping(method = RequestMethod.GET, value = "/user/{userId}/pack")
-    List<String> getUserPacks(@PathVariable("storeId") String userId);
+    @RequestMapping(method = RequestMethod.GET, value = "/user/pack")
+    @Headers("user-id: {user-id}")
+    List<String> getUserPacks(@Param("user-id") String userId);
 }
