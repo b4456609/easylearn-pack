@@ -1,6 +1,7 @@
 buildscript {
     ext {
         springBootVersion = '1.4.1.RELEASE'
+        pactVersion = '3.3.2'
     }
     repositories {
         mavenCentral()
@@ -36,6 +37,8 @@ dependencies {
     compile('org.springframework.boot:spring-boot-starter-data-mongodb')
     compile('org.springframework.boot:spring-boot-starter-web')
     testCompile('org.springframework.boot:spring-boot-starter-test')
+    testCompile group: 'au.com.dius', name: 'pact-jvm-consumer-junit_2.11', version: pactVersion
+    testCompile group: 'au.com.dius', name: 'pact-jvm-provider_2.11', version: pactVersion
 }
 
 dependencyManagement {
