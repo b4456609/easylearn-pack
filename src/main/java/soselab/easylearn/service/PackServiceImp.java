@@ -55,6 +55,11 @@ public class PackServiceImp implements PackService {
         Pack pack = packRepository.findOne(packId);
         if (pack == null) throw new PackNotFoundException();
         pack.getVersion().add(version);
+
+        if (pack.isPublic() == false && version.isPublic() == true) {
+            pack.setIsPublic(true);
+        }
+
         packRepository.save(pack);
     }
 
