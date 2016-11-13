@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import soselab.easylearn.exception.UserValidationFailException;
 import soselab.easylearn.model.Pack;
 import soselab.easylearn.model.Version;
+import soselab.easylearn.model.dto.UpdateVersionDTO;
 import soselab.easylearn.service.PackService;
 
 import java.util.List;
@@ -49,8 +50,8 @@ public class PackController {
         packService.addVersion(packId, version);
     }
 
-//    @RequestMapping(path = "/{packId}/version", method = RequestMethod.PUT)
-//    public void updateVersion(@PathVariable String packId, @RequestBody Version version) {
-//        packService.updateVersion(packId, version);
-//    }
+    @RequestMapping(path = "/version", method = RequestMethod.PUT)
+    public void updateVersion(@RequestBody UpdateVersionDTO updateVersionDTO) {
+        packService.updateVersion(updateVersionDTO.getPackId(), updateVersionDTO.getVersionId(), updateVersionDTO.getContent());
+    }
 }

@@ -16,9 +16,11 @@ import soselab.easylearn.model.Pack;
 import soselab.easylearn.model.PackBuilder;
 import soselab.easylearn.model.Version;
 import soselab.easylearn.model.VersionBuilder;
+import soselab.easylearn.model.dto.UpdateVersionDTO;
 import soselab.easylearn.repository.PackRepository;
 
 import java.util.Arrays;
+import java.util.Collections;
 
 import static org.assertj.core.api.Java6Assertions.assertThat;
 import static org.mockito.Mockito.when;
@@ -43,14 +45,21 @@ public class PackControllerTest {
     @Before
     public void setUp() {
         packRepository.deleteAll();
+        Version version = new VersionBuilder()
+                .setId("versionId")
+                .setCreatorUserId("id")
+                .createVersion();
         Pack pack = new PackBuilder()
                 .setId("packIdpackId")
                 .setName("packName")
+                .setVersion(Collections.singletonList(version))
                 .createPack();
         Pack pack1 = new PackBuilder()
                 .setId("packId")
                 .setName("pack")
                 .createPack();
+
+
         packRepository.save(pack);
         packRepository.save(pack1);
     }
@@ -194,4 +203,54 @@ public class PackControllerTest {
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
     }
 
+    @Test
+    public void updateVersion_updateVersion_PackIdNotFound() throws Exception {
+        UpdateVersionDTO updateVersionDTO = new UpdateVersionDTO("i", "aa", "ttt");
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+
+        String json = objectMapper.writeValueAsString(updateVersionDTO);
+        HttpEntity<String> entity = new HttpEntity<>(json, headers);
+        ResponseEntity<String> response = this.restTemplate
+                .exchange("/version", HttpMethod.PUT, entity, String.class);
+
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
+        assertThat(response.getBody().toString()).contains("Pack not found");
+    }
+
+
+    @Test
+    public void updateVersion_updateVersion_VersionIdNotFound() throws Exception {
+        UpdateVersionDTO updateVersionDTO = new UpdateVersionDTO("aa","packId", "ttt");
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+
+        String json = objectMapper.writeValueAsString(updateVersionDTO);
+        HttpEntity<String> entity = new HttpEntity<>(json, headers);
+        ResponseEntity<String> response = this.restTemplate
+                .exchange("/version", HttpMethod.PUT, entity, String.class);
+
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
+        assertThat(response.getBody().toString()).contains("Version not found");
+    }
+
+
+    @Test
+    public void updateVersion_updateVersion_ChangeDB() throws Exception {
+        UpdateVersionDTO updateVersionDTO = new UpdateVersionDTO("versionId","packIdpackId", "ttt");
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+
+        String json = objectMapper.writeValueAsString(updateVersionDTO);
+        HttpEntity<String> entity = new HttpEntity<>(json, headers);
+        ResponseEntity<String> response = this.restTemplate
+                .exchange("/version", HttpMethod.PUT, entity, String.class);
+
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
+        Pack pack = packRepository.findOne("packIdpackId");
+        assertThat(pack.getVersion().get(0).getContent()).contains("ttt");
+    }
 }

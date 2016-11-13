@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import soselab.easylearn.client.NoteClient;
 import soselab.easylearn.client.UserClient;
 import soselab.easylearn.exception.PackNotFoundException;
+import soselab.easylearn.exception.VersionNotFoundException;
 import soselab.easylearn.model.Pack;
 import soselab.easylearn.model.Version;
 import soselab.easylearn.repository.PackRepository;
@@ -58,20 +59,20 @@ public class PackServiceImp implements PackService {
         packRepository.save(pack);
     }
 
-//    @Override
-//    public void updateVersion(String packId, Version version) {
-//        Pack pack = packRepository.findOne(packId);
-//        if(pack == null) throw new PackNotFoundException();
-//
-//        Version dbVersion = pack.getVersion()
-//                .stream()
-//                .filter(v -> !v.getId().equals(version.getId()))
-//                .findAny()
-//                .orElse(null);
-//
-//        dbVersion.add(version);
-//        pack.setVersion(dbVersion);
-//        packRepository.save(pack);
-//    }
+    @Override
+    public void updateVersion(String packId, String versionId, String content) {
+        Pack pack = packRepository.findOne(packId);
+        if(pack == null) throw new PackNotFoundException();
+
+        Version dbVersion = pack.getVersion()
+                .stream()
+                .filter(v -> v.getId().equals(versionId))
+                .findAny()
+                .orElseThrow(VersionNotFoundException::new);
+        dbVersion.setContent(content);
+
+        packRepository.save(pack);
+
+    }
 
 }
