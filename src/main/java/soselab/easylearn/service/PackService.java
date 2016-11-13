@@ -15,5 +15,5 @@ public interface PackService {
 
     void addVersion(String PackId, Version version);
 
-//    void updateVersion(String PackId, Version version);
+    void updateVersion(String packId, String versionId, String content);
 }

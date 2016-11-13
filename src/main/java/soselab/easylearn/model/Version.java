@@ -92,6 +92,20 @@ public class Version {
     }
 
     @Override
+    public String toString() {
+        return "Version{" +
+                "id='" + id + '\'' +
+                ", content='" + content + '\'' +
+                ", createTime=" + createTime +
+                ", isPublic=" + isPublic +
+                ", creatorUserId='" + creatorUserId + '\'' +
+                ", creatorUserName='" + creatorUserName + '\'' +
+                ", file=" + file +
+                ", viewCount=" + viewCount +
+                '}';
+    }
+
+    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
