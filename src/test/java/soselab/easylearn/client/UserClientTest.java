@@ -5,8 +5,6 @@ import au.com.dius.pact.consumer.PactProviderRule;
 import au.com.dius.pact.consumer.PactVerification;
 import au.com.dius.pact.consumer.dsl.PactDslWithProvider;
 import au.com.dius.pact.model.PactFragment;
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -16,17 +14,14 @@ import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import static org.junit.Assert.*;
-
 
 @RunWith(SpringRunner.class)
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, properties = {
-        "easylearn-user.ribbon.listOfServers=localhost:8085"})
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @DirtiesContext
 @ActiveProfiles("test")
 public class UserClientTest {
     @Rule
-    public PactProviderRule mockProvider = new PactProviderRule("test_provider", "localhost", 8085, this);
+    public PactProviderRule mockProvider = new PactProviderRule("easylearn-user", "localhost", 8085, this);
 
     @Autowired
     private UserClient client;
@@ -34,13 +29,13 @@ public class UserClientTest {
     @Test
     @PactVerification
     public void getUserPacks() throws Exception {
-        System.out.println(client.getUserPacks("Tom's id"));
+        client.getUserPacks("Tom's id");
     }
 
-    @Pact(consumer = "test_consumer")
+    @Pact(consumer = "easylearn-pack")
     public PactFragment createFragment(PactDslWithProvider builder) {
         return builder
-                .uponReceiving("ExampleJavaConsumerPactRuleTest test interaction")
+                .uponReceiving("get user all pacts' id")
                 .path("/pack")
                 .headers("user-id", "Tom's id")
                 .method("GET")

@@ -5,15 +5,20 @@ buildscript {
     }
     repositories {
         mavenCentral()
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
     }
     dependencies {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+        classpath "gradle.plugin.au.com.dius:pact-jvm-provider-gradle_2.11:3.3.3"
     }
 }
 
 apply plugin: 'java'
 apply plugin: 'eclipse'
 apply plugin: 'spring-boot'
+apply plugin: 'au.com.dius.pact'
 
 jar {
     baseName = 'pack'
@@ -38,11 +43,18 @@ dependencies {
     compile('org.springframework.boot:spring-boot-starter-web')
     testCompile('org.springframework.boot:spring-boot-starter-test')
     testCompile group: 'au.com.dius', name: 'pact-jvm-consumer-junit_2.11', version: pactVersion
-    testCompile group: 'au.com.dius', name: 'pact-jvm-provider_2.11', version: pactVersion
 }
 
 dependencyManagement {
     imports {
         mavenBom "org.springframework.cloud:spring-cloud-dependencies:Brixton.SR6"
+    }
+}
+
+pact {
+    publish {
+        version = '0.8.0'
+        pactDirectory = 'target/pacts'
+        pactBrokerUrl = "$System.env.PACT_URL"
     }
 }
