@@ -67,7 +67,7 @@ public class PackServiceImp implements PackService {
     @Override
     public void updateVersion(String packId, String versionId, String content) {
         Pack pack = packRepository.findOne(packId);
-        if(pack == null) throw new PackNotFoundException();
+        if (pack == null) throw new PackNotFoundException();
 
         Version dbVersion = pack.getVersion()
                 .stream()

@@ -222,7 +222,7 @@ public class PackControllerTest {
 
     @Test
     public void updateVersion_updateVersion_VersionIdNotFound() throws Exception {
-        UpdateVersionDTO updateVersionDTO = new UpdateVersionDTO("aa","packId", "ttt");
+        UpdateVersionDTO updateVersionDTO = new UpdateVersionDTO("aa", "packId", "ttt");
 
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
@@ -239,7 +239,7 @@ public class PackControllerTest {
 
     @Test
     public void updateVersion_updateVersion_ChangeDB() throws Exception {
-        UpdateVersionDTO updateVersionDTO = new UpdateVersionDTO("versionId","packIdpackId", "ttt");
+        UpdateVersionDTO updateVersionDTO = new UpdateVersionDTO("versionId", "packIdpackId", "ttt");
 
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
