@@ -31,7 +31,7 @@ public class DatabaseTestData implements CommandLineRunner {
                     .setCreateTime(1477403036635L)
                     .setIsPublic(false)
                     .setCreatorUserId("1009840175700426")
-                    .setCreatorUserId("范振原范振原ㄑBernie范振原范振原范振原范振原")
+                    .setCreatorUserId("范振原")
                     .setViewCount(0)
                     .createVersion();
             Version version2 = new VersionBuilder()
@@ -40,7 +40,7 @@ public class DatabaseTestData implements CommandLineRunner {
                     .setCreateTime(1477403036635L)
                     .setIsPublic(false)
                     .setCreatorUserId("1009840175700426")
-                    .setCreatorUserId("范振原范振原ㄑBernie范振原范振原范振原范振原")
+                    .setCreatorUserId("范振原")
                     .setViewCount(0)
                     .createVersion();
             Pack pack = new PackBuilder()
@@ -49,7 +49,7 @@ public class DatabaseTestData implements CommandLineRunner {
                     .setDescription("test")
                     .setIsPublic(false)
                     .setCreatorUserId("1009840175700426")
-                    .setCreatorUserId("范振原范振原ㄑBernie范振原范振原范振原范振原")
+                    .setCreatorUserId("范振原")
                     .setVersion(Arrays.asList(version1, version2))
                     .setCoverFilename("uNS5dGs.png")
                     .setViewCount(0)
@@ -63,7 +63,7 @@ public class DatabaseTestData implements CommandLineRunner {
                     .setCreateTime(1478666090008L)
                     .setIsPublic(false)
                     .setCreatorUserId("1009840175700426")
-                    .setCreatorUserId("范振原范振原ㄑBernie范振原范振原范振原范振原")
+                    .setCreatorUserId("范振原")
                     .setViewCount(0)
                     .createVersion();
 
@@ -73,7 +73,7 @@ public class DatabaseTestData implements CommandLineRunner {
                     .setDescription("private")
                     .setIsPublic(false)
                     .setCreatorUserId("1009840175700426")
-                    .setCreatorUserId("范振原范振原ㄑBernie范振原范振原范振原范振原")
+                    .setCreatorUserId("范振原")
                     .setVersion(Arrays.asList(version1, version2))
                     .setCoverFilename("")
                     .setViewCount(0)
