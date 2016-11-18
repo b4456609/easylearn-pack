@@ -4,7 +4,11 @@ spring:
   data:
     mongodb:
       database: pack
-      host: packdb
+      host: ${EASYLEARN_DB_HOST:packdb}
+
+easylearn:
+  isTest: ${EASYLEARN_TEST:false}
+
 server:
   port: 8080
 

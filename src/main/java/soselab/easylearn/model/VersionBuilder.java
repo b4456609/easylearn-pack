@@ -1,8 +1,6 @@
 package soselab.easylearn.model;
 
 import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
 
 public class VersionBuilder {
     private String id = "versionId";
@@ -11,7 +9,6 @@ public class VersionBuilder {
     private boolean isPublic = false;
     private String creatorUserId = "userid";
     private String creatorUserName = "username";
-    private Set<String> file = new HashSet<String>();
     private long viewCount = 0;
 
     public VersionBuilder setId(String id) {
@@ -44,10 +41,6 @@ public class VersionBuilder {
         return this;
     }
 
-    public VersionBuilder setFile(Set<String> file) {
-        this.file = file;
-        return this;
-    }
 
     public VersionBuilder setViewCount(long viewCount) {
         this.viewCount = viewCount;
@@ -55,6 +48,6 @@ public class VersionBuilder {
     }
 
     public Version createVersion() {
-        return new Version(id, content, createTime, isPublic, creatorUserId, creatorUserName, file, viewCount);
+        return new Version(id, content, createTime, isPublic, creatorUserId, creatorUserName, viewCount);
     }
 }

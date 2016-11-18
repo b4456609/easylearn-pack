@@ -87,12 +87,12 @@ public class PackServiceImpTest {
 
     @Test
     public void updateVersion_updateVersion_SaveDB() throws Exception {
-        Version version = new VersionBuilder().setId("ida").setContent("content").setCreateTime(5687).setIsPublic(false).setCreatorUserId("String creatorUserId").setCreatorUserName("asdf").setFile(Collections.EMPTY_SET).setViewCount(1).createVersion();
+        Version version = new VersionBuilder().setId("ida").setContent("content").setCreateTime(5687).setIsPublic(false).setCreatorUserId("String creatorUserId").setCreatorUserName("asdf").setViewCount(1).createVersion();
         Pack pack = new PackBuilder().setName("name").setId("id").setDescription("description").setCreateTime(123).setIsPublic(true).setCreatorUserId("userid").setCreatorUserName("creatorUserName").setCoverFilename("coverFilename").setVersion(Collections.singletonList(version)).setViewCount(0).createPack();
 
         given(packRepository.findOne("id"))
                 .willReturn(pack);
-        packService.updateVersion("id","ida", "version");
+        packService.updateVersion("id", "ida", "version");
 
         verify(packRepository).save(pack);
         assertThat(pack.getVersion().get(0).getContent()).isEqualToIgnoringCase("version");

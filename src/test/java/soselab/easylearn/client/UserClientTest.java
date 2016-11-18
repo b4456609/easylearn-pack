@@ -13,6 +13,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
+import soselab.easylearn.service.PackService;
+import soselab.easylearn.service.PackServiceImp;
 
 
 @RunWith(SpringRunner.class)
@@ -34,6 +36,9 @@ public class UserClientTest {
 
     @Pact(consumer = "easylearn-pack")
     public PactFragment createFragment(PactDslWithProvider builder) {
+        Object[] packServices = new PackService[2];
+        packServices[0] = new PackServiceImp();
+
         return builder
                 .uponReceiving("get user all pacts' id")
                 .path("/pack")
@@ -43,6 +48,8 @@ public class UserClientTest {
                 .status(200)
                 .body("[\"packid\", \"testPackId\"]", "application/json")
                 .toFragment();
+
+
     }
 
 }
