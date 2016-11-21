@@ -14,8 +14,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
-import soselab.easylearn.service.PackService;
-import soselab.easylearn.service.PackServiceImp;
 
 import java.util.Arrays;
 
@@ -26,7 +24,7 @@ import java.util.Arrays;
 @ActiveProfiles("test")
 public class UserClientTest {
     @Rule
-    public PactProviderRule mockProvider = new PactProviderRule("easylearn-user", "localhost", 8085, this);
+    public PactProviderRule mockProvider = new PactProviderRule("easylearn_user", "localhost", 8085, this);
 
     @Autowired
     private UserClient client;
@@ -37,11 +35,8 @@ public class UserClientTest {
         client.getUserPacks("1009840175700426");
     }
 
-    @Pact(consumer = "easylearn-pack")
+    @Pact(consumer = "easylearn_pack")
     public PactFragment createFragment(PactDslWithProvider builder) {
-        Object[] packServices = new PackService[2];
-        packServices[0] = new PackServiceImp();
-
         JSONArray jsonArray = new JSONArray(Arrays.asList("pack1477403034413",
                 "pack1478666090008", "pack1479221373194"));
 
@@ -54,8 +49,5 @@ public class UserClientTest {
                 .status(200)
                 .body(jsonArray.toString(), "application/json")
                 .toFragment();
-
-
     }
-
 }
