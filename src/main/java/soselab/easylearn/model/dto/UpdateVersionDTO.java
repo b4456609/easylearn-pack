@@ -6,12 +6,12 @@ package soselab.easylearn.model.dto;
 public class UpdateVersionDTO {
     private String versionId;
     private String packId;
-    private String content;
+    private String newContent;
 
-    public UpdateVersionDTO(String versionId, String packId, String content) {
+    public UpdateVersionDTO(String versionId, String packId, String newContent) {
         this.versionId = versionId;
         this.packId = packId;
-        this.content = content;
+        this.newContent = newContent;
     }
 
     public UpdateVersionDTO() {
@@ -33,11 +33,11 @@ public class UpdateVersionDTO {
         this.packId = packId;
     }
 
-    public String getContent() {
-        return content;
+    public String getNewContent() {
+        return newContent;
     }
 
-    public void setContent(String content) {
-        this.content = content;
+    public void setNewContent(String newContent) {
+        this.newContent = newContent;
     }
 }

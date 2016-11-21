@@ -52,6 +52,6 @@ public class PackController {
 
     @RequestMapping(path = "/version", method = RequestMethod.PUT)
     public void updateVersion(@RequestBody UpdateVersionDTO updateVersionDTO) {
-        packService.updateVersion(updateVersionDTO.getPackId(), updateVersionDTO.getVersionId(), updateVersionDTO.getContent());
+        packService.updateVersion(updateVersionDTO.getPackId(), updateVersionDTO.getVersionId(), updateVersionDTO.getNewContent());
     }
 }
