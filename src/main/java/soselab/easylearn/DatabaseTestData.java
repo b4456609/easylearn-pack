@@ -58,7 +58,7 @@ public class DatabaseTestData implements CommandLineRunner {
 
 
             version1 = new VersionBuilder()
-                    .setId("version1478666090008")
+                    .setId("version1479221373194")
                     .setContent("<p>asdfasdf</p>")
                     .setCreateTime(1478666090008L)
                     .setIsPublic(false)
@@ -70,6 +70,29 @@ public class DatabaseTestData implements CommandLineRunner {
             pack = new PackBuilder()
                     .setId("pack1479221373194")
                     .setName("private")
+                    .setDescription("private")
+                    .setIsPublic(false)
+                    .setCreatorUserId("1009840175700426")
+                    .setCreatorUserId("范振原")
+                    .setVersion(Arrays.asList(version1, version2))
+                    .setCoverFilename("")
+                    .setViewCount(0)
+                    .createPack();
+            packRepository.save(pack);
+
+            version1 = new VersionBuilder()
+                    .setId("version1478666090008")
+                    .setContent("<p>asdfasdf</p>")
+                    .setCreateTime(1478666090008L)
+                    .setIsPublic(false)
+                    .setCreatorUserId("1009840175700426")
+                    .setCreatorUserId("范振原")
+                    .setViewCount(0)
+                    .createVersion();
+
+            pack = new PackBuilder()
+                    .setId("pack1478666090008")
+                    .setName("test")
                     .setDescription("private")
                     .setIsPublic(false)
                     .setCreatorUserId("1009840175700426")
