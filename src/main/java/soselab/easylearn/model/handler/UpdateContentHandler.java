@@ -1,11 +1,8 @@
 package soselab.easylearn.model.handler;
 
 
-import soselab.easylearn.model.Version;
-
 public class UpdateContentHandler {
-    public Version execute(String content, Version dbVersion) {
-        String dbContent = dbVersion.getContent();
+    public String execute(String content, String dbContent) {
         StringBuffer dbContentBuffer = new StringBuffer(dbContent);
         StringBuffer contentBuffer = new StringBuffer(content);
 
@@ -16,15 +13,14 @@ public class UpdateContentHandler {
         int dbIndex = dbContentBuffer.indexOf("<span class=\"note", index);
 
         if (clientIndex == -1 && dbIndex == -1)
-            return dbVersion;
+            return dbContent;
         else if (clientIndex >= 0 && dbIndex == -1) {
-            // client has newer versin
-            dbVersion.setContent(content);
-            return dbVersion;
+            // client has newer version
+            return content;
         } else if (clientIndex == -1 && dbIndex >= 0) {
             // return do nothing
             // db has new
-            return dbVersion;
+            return dbContent;
         }
 
         while (true) {
@@ -33,21 +29,20 @@ public class UpdateContentHandler {
             dbIndex = dbContentBuffer.indexOf("<span class=\"note", index);
             if (clientIndex == -1 && dbIndex == -1) {
                 // result
-                dbVersion.setContent(dbContentBuffer.toString());
-                return dbVersion;
+                return dbContentBuffer.toString();
             } else if (clientIndex != -1 && dbIndex == -1) {
-                versionInsert(index, clientIndex, contentBuffer,
+                versionInsert(clientIndex, contentBuffer,
                         dbContentBuffer);
             } else if (clientIndex == -1 && dbIndex != -1) {
-                versionInsert(index, dbIndex, dbContentBuffer,
+                versionInsert(dbIndex, dbContentBuffer,
                         contentBuffer);
             } else if (clientIndex == dbIndex) {
                 index = clientIndex + 1;
             } else if (clientIndex < dbIndex) {
-                versionInsert(index, clientIndex, contentBuffer,
+                versionInsert(clientIndex, contentBuffer,
                         dbContentBuffer);
             } else if (clientIndex > dbIndex) {
-                versionInsert(index, dbIndex, dbContentBuffer,
+                versionInsert(dbIndex, dbContentBuffer,
                         contentBuffer);
             } else {
                 System.out.println("error");
@@ -55,9 +50,8 @@ public class UpdateContentHandler {
         }
     }
 
-    private int versionInsert(int index, int clientIndex,
+    private int versionInsert(int index,
                               StringBuffer contentBuffer, StringBuffer dbContentBuffer) {
-        index = clientIndex;
         int last = contentBuffer.indexOf(">", index);
         String newStr = contentBuffer.substring(index, last + 1);
         dbContentBuffer.insert(index, newStr);
