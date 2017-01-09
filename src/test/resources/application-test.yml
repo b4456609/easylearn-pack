@@ -5,7 +5,9 @@ spring:
     mongodb:
       database: pack
       host: ${TEST_DB_HOST:localhost}
-
+logging:
+  level:
+    ch: WARN
 eureka:
   client:
     enabled: false
