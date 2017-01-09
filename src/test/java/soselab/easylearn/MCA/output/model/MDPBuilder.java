@@ -10,7 +10,6 @@ public class MDPBuilder {
     private String swagger;
     private List<Endpoint> endpoint;
     private List<EndpointDep> endpointDep;
-    private String version;
 
     public MDPBuilder setTimestamp(long timestamp) {
         this.timestamp = timestamp;
@@ -42,12 +41,7 @@ public class MDPBuilder {
         return this;
     }
 
-    public MDPBuilder setVersion(String version) {
-        this.version = version;
-        return this;
-    }
-
     public MDP createMDP() {
-        return new MDP(timestamp, serviceCall, name, swagger, endpoint, endpointDep, version);
+        return new MDP(timestamp, serviceCall, name, swagger, endpoint, endpointDep);
     }
 }

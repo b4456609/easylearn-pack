@@ -8,7 +8,7 @@ public class EndpointDep {
 
     private String from;
 
-    public EndpointDep(String to, String from) {
+    public EndpointDep(String from, String to) {
         this.to = to;
         this.from = from;
     }

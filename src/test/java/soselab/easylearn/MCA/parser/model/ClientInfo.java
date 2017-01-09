@@ -6,10 +6,10 @@ import java.lang.reflect.Method;
  * Created by bernie on 1/9/17.
  */
 public class ClientInfo {
-    private Method method;
-    private String path;
-    private String httpMethod;
-    private String target;
+    private final Method method;
+    private final String path;
+    private final String httpMethod;
+    private final String target;
 
     public ClientInfo(Method method, String path, String httpMethod, String target) {
         this.method = method;

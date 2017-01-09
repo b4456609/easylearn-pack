@@ -3,7 +3,9 @@ package soselab.easylearn.MCA.parser;
 import org.json.JSONObject;
 import soselab.easylearn.MCA.parser.model.ServiceEndpoint;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -19,7 +21,6 @@ public class EndpointParser {
     }
 
     public List<ServiceEndpoint> getMappings(String mappingJson){
-        System.out.println(mappingJson);
         JSONObject jsonObject = new JSONObject(mappingJson);
         List<ServiceEndpoint> pathMedthodPair = new ArrayList<>();
         Iterator keys = jsonObject.keys();
@@ -45,7 +46,6 @@ public class EndpointParser {
         matcher.find();
         String group = matcher.group();
         String path = group.substring(1, group.length() - 1);
-        System.out.println(path);
         return path;
     }
 
@@ -57,7 +57,6 @@ public class EndpointParser {
         matcher.find();
         String group = matcher.group();
         String method = group.substring(2, group.length() - 1);
-        System.out.println(method);
         return method;
     }
 }

@@ -1,7 +1,6 @@
 package soselab.easylearn.MCA.output.model;
 
 
-import java.util.Arrays;
 import java.util.List;
 
 public class MDP {
@@ -17,16 +16,13 @@ public class MDP {
 
     private List<EndpointDep> endpointDep;
 
-    private String version;
-
-    public MDP(long timestamp, List<ServiceCall> serviceCall, String name, String swagger, List<Endpoint> endpoint, List<EndpointDep> endpointDep, String version) {
+    public MDP(long timestamp, List<ServiceCall> serviceCall, String name, String swagger, List<Endpoint> endpoint, List<EndpointDep> endpointDep) {
         this.timestamp = timestamp;
         this.serviceCall = serviceCall;
         this.name = name;
         this.swagger = swagger;
         this.endpoint = endpoint;
         this.endpointDep = endpointDep;
-        this.version = version;
     }
 
     public long getTimestamp ()
@@ -89,16 +85,6 @@ public class MDP {
         this.endpointDep = endpointDep;
     }
 
-    public String getVersion ()
-    {
-        return version;
-    }
-
-    public void setVersion (String version)
-    {
-        this.version = version;
-    }
-
     @Override
     public String toString() {
         return "MDP{" +
@@ -108,7 +94,6 @@ public class MDP {
                 ", swagger='" + swagger + '\'' +
                 ", endpoint=" + endpoint +
                 ", endpointDep=" + endpointDep +
-                ", version='" + version + '\'' +
                 '}';
     }
 }
