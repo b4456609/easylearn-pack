@@ -19,7 +19,3 @@ ribbon:
 feign:
   hystrix:
     enabled: false
-
-easylearn-user:
-  ribbon:
-    listOfServers: localhost:8085

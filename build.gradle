@@ -1,6 +1,6 @@
 buildscript {
     ext {
-        springBootVersion = '1.4.1.RELEASE'
+        springBootVersion = '1.4.2.RELEASE'
         pactVersion = '3.3.2'
     }
     repositories {
@@ -41,11 +41,9 @@ dependencies {
     compile('org.springframework.cloud:spring-cloud-starter-ribbon')
     compile('org.springframework.boot:spring-boot-starter-data-mongodb')
     compile('org.springframework.boot:spring-boot-starter-web')
-    compile group: 'io.springfox', name: 'springfox-swagger2', version: '2.6.1'
-    compile group: 'io.springfox', name: 'springfox-swagger-ui', version: '2.6.1'
-    compile group: 'org.freemarker', name: 'freemarker', version: '2.3.23'
 
-    compile group: 'org.reflections', name: 'reflections', version: '0.9.10'
+    compile group: 'io.springfox', name: 'springfox-swagger2', version: '2.6.1'
+    compile files('/home/bernie/project/easylearn/mca/build/libs/mca-all.jar')
 
     testCompile('org.springframework.boot:spring-boot-starter-test')
     testCompile group: 'au.com.dius', name: 'pact-jvm-consumer-junit_2.11', version: pactVersion
@@ -53,7 +51,7 @@ dependencies {
 
 dependencyManagement {
     imports {
-        mavenBom "org.springframework.cloud:spring-cloud-dependencies:Brixton.SR6"
+        mavenBom "org.springframework.cloud:spring-cloud-dependencies:Camden.SR2"
     }
 }
 
